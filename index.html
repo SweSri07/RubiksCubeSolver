@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS' Rubik's Cube Solver</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Roboto font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+      html, body {
+        font-family: 'Roboto', Arial, sans-serif !important;
+      }
+      body {
+        background: linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%);
+      }
+      .main-card {
+        background: rgba(255,255,255,0.97);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+        padding: 2rem 2.5rem;
+      }
+      .btn-primary {
+        background: linear-gradient(90deg, #4B2067 0%, #5B21B6 100%);
+        color: #fff;
+        font-family: 'Roboto', Arial, sans-serif;
+      }
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #3b1851 0%, #432874 100%);
+      }
+      .btn-secondary {
+        background: #ede9fe;
+        color: #4B2067;
+        font-family: 'Roboto', Arial, sans-serif;
+      }
+      .leaderboard-bg {
+        background: #f5f3ff;
+      }
+      .text-violet-800 {
+        color: #4B2067 !important;
+      }
+      .font-extrabold, .font-bold, .font-semibold {
+        font-family: 'Roboto', Arial, sans-serif !important;
+      }
+      .scramble, .timer, .solve-entry, .cube-face, .cube-sticker {
+        font-family: 'Roboto', Arial, sans-serif !important;
+      }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center">
+    <div id="app" class="w-full max-w-lg mx-auto py-8">
+        <!-- Login/Welcome Section (centered card) -->
+        <section id="loginSection" class="main-card flex flex-col items-center justify-center mb-8">
+            <h1 class="text-4xl font-extrabold mb-2 text-violet-800">SS' Rubik's Cube Solver</h1>
+            <p class="text-lg text-gray-600 mb-6">Track your solves and improve your times</p>
+            <div id="authForm" class="w-full max-w-sm flex flex-col items-center">
+                <input id="username" type="text" placeholder="Username" class="border rounded px-3 py-2 mb-3 w-full text-lg">
+                <input id="password" type="password" placeholder="Password" class="border rounded px-3 py-2 mb-3 w-full text-lg">
+                <div class="flex gap-2 w-full mb-2">
+                    <button id="loginBtn" class="btn-primary font-bold py-2 rounded w-1/2 text-lg">Login</button>
+                    <button id="signupBtn" class="btn-secondary font-bold py-2 rounded w-1/2 text-lg">Sign Up</button>
+                </div>
+                <span id="loginError" class="text-red-500 text-sm mb-2"></span>
+            </div>
+        </section>
+
+        <!-- Main Solver UI (hidden until login) -->
+        <main id="solverMain" class="main-card max-w-2xl mx-auto hidden">
+            <div class="flex justify-between items-center mb-4">
+                <span id="userDisplay" class="text-2xl font-extrabold text-violet-800"></span>
+                <button id="logoutBtn" class="btn-secondary font-bold px-4 py-2 rounded">Logout</button>
+            </div>
+            <!-- Scramble Section -->
+            <section class="mb-8">
+                <div id="scramble" class="scramble"></div>
+                <div id="scrambleVisual" class="scramble-visual mt-4"></div>
+                <button id="newScramble" type="button" class="btn-primary w-full mt-4 font-bold py-2 px-4 rounded text-lg">
+                    Generate New Scramble
+                </button>
+            </section>
+
+            <!-- Timer Section -->
+            <section id="timerSection" class="mb-8 text-center">
+                <div id="timerDisplay" class="timer">0.00</div>
+                <button id="timerBtn" class="btn-primary font-bold py-4 px-8 rounded-full text-xl">
+                    Start Timer
+                </button>
+                <p class="mt-2 text-sm text-gray-600">
+                    Press spacebar to start/stop
+                </p>
+            </section>
+
+            <!-- Stats Section -->
+            <section id="statsSection" class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">Statistics</h2>
+                <div id="statsContainer" class="p-4 leaderboard-bg rounded-lg shadow">
+                    <div class="stat-card p-4 rounded-lg bg-white shadow-sm">
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span>Total Solves:</span>
+                                <span id="totalSolves" class="font-bold">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>All Time Personal Best:</span>
+                                <span id="allTimeBest" class="font-bold">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Average of Last 5:</span>
+                                <span id="averageOf5" class="font-bold">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Average of Last 10:</span>
+                                <span id="averageOf10" class="font-bold">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>All-time Average:</span>
+                                <span id="allTimeAverage" class="font-bold">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="history">
+                <h2 class="text-2xl font-bold mb-4">Solve History</h2>
+                <div class="flex items-center mb-2">
+                    <label for="historySort" class="mr-2 font-medium">Order by:</label>
+                    <select id="historySort" class="border rounded px-2 py-1 text-sm">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="fastest">Fastest First</option>
+                        <option value="slowest">Slowest First</option>
+                    </select>
+                </div>
+                <div id="history" class="leaderboard-bg rounded-lg shadow mb-4"></div>
+                <div class="flex gap-2">
+                    <button id="backupBtn" class="btn-secondary font-bold py-2 px-4 rounded w-1/2">Backup Data</button>
+                    <button id="restoreBtn" class="btn-secondary font-bold py-2 px-4 rounded w-1/2">Restore Data</button>
+                </div>
+            </section>
+            <button id="deleteAllBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full mt-2" style="display: block !important;">Delete All Data</button>
+        </main>
+    </div>
+
+    <!-- Scramble generator -->
+    <script src="src/scrambleGenerator.js"></script>
+    <!-- Core app script -->
+    <script src="src/main.js"></script>
+    <!-- Hammer.js for touch gestures -->
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script>
+      // Paste your Firebase config here
+      const firebaseConfig = {
+        apiKey: "AIzaSyBP54_-c6s0bLE23XdLPhdR73lrkGt85AM",
+        authDomain: "rubikscubesolver-86085.firebaseapp.com",
+        projectId: "rubikscubesolver-86085",
+        storageBucket: "rubikscubesolver-86085.appspot.com",
+        messagingSenderId: "131106983814",
+        appId: "1:131106983814:web:5296c2c347510c5c78a607",
+        measurementId: "G-XSRYYMWCLJ"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      function usernameToEmail(username) {
+        return `${username}@swethacube.local`;
+      }
+
+      // Auth state change handler
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          // Show login, hide solver
+          document.getElementById('solverMain').classList.add('hidden');
+          document.getElementById('loginSection').classList.remove('hidden');
+          if (window.appState) {
+            window.appState.solves = [];
+            window.appState.sessionSolves = [];
+            window.appState.updateStats();
+            window.appState.renderHistory();
+          }
+        }
+      });
+
+      document.getElementById('loginBtn').onclick = async () => {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        document.getElementById('loginError').textContent = '';
+        try {
+          await auth.signInWithEmailAndPassword(usernameToEmail(username), password);
+          // Show solver, hide login
+          document.getElementById('solverMain').classList.remove('hidden');
+          document.getElementById('loginSection').classList.add('hidden');
+          document.getElementById('userDisplay').textContent = username;
+          await window.appState.loadSolves();
+          window.appState.updateStats();
+          window.appState.renderHistory();
+          window.appState.generateNewScramble();
+        } catch (e) {
+          document.getElementById('loginError').textContent = e.message;
+        }
+      };
+
+      document.getElementById('signupBtn').onclick = async () => {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        document.getElementById('loginError').textContent = '';
+        try {
+          await auth.createUserWithEmailAndPassword(usernameToEmail(username), password);
+          // Show solver, hide login
+          document.getElementById('solverMain').classList.remove('hidden');
+          document.getElementById('loginSection').classList.add('hidden');
+          document.getElementById('userDisplay').textContent = username;
+          await window.appState.loadSolves();
+          window.appState.updateStats();
+          window.appState.renderHistory();
+          window.appState.generateNewScramble();
+        } catch (e) {
+          document.getElementById('loginError').textContent = e.message;
+        }
+      };
+
+      document.getElementById('logoutBtn').onclick = async () => {
+        await auth.signOut();
+      };
+
+      // Initialize app state
+      window.appState = new AppState();
+
+      // Touch gesture handling
+      function setupTouchGestures() {
+        const solverMain = document.getElementById('solverMain');
+        if (!solverMain) return;
+
+        const hammer = new Hammer(solverMain);
+        
+        // Configure recognizers
+        hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+        
+        // Handle swipe gestures
+        hammer.on('swipeleft swiperight', function(e) {
+          const sections = ['scrambleSection', 'timerSection', 'statsSection', 'history'];
+          const currentSection = document.activeElement.closest('section');
+          if (!currentSection) return;
+          
+          const currentIndex = sections.indexOf(currentSection.id);
+          if (currentIndex === -1) return;
+          
+          let targetIndex;
+          if (e.direction === Hammer.DIRECTION_LEFT) {
+            targetIndex = (currentIndex + 1) % sections.length;
+          } else {
+            targetIndex = (currentIndex - 1 + sections.length) % sections.length;
+          }
+          
+          const targetSection = document.getElementById(sections[targetIndex]);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Initialize touch gestures after DOM is loaded
+      document.addEventListener('DOMContentLoaded', setupTouchGestures);
+
+      // Backup and restore functionality
+      document.getElementById('backupBtn').onclick = () => {
+        const solves = window.appState.solves;
+        const dataStr = JSON.stringify(solves, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = `rubiks-cube-solves-${new Date().toISOString().split('T')[0]}.json`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      };
+
+      document.getElementById('restoreBtn').onclick = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        
+        input.onchange = async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          try {
+            const text = await file.text();
+            const solves = JSON.parse(text);
+            
+            if (!Array.isArray(solves)) {
+              throw new Error('Invalid backup file format');
+            }
+            
+            if (!confirm(`Are you sure you want to restore ${solves.length} solves? This will replace your current data.`)) {
+              return;
+            }
+            
+            window.appState.solves = solves;
+            window.appState.sessionSolves = [];
+            await window.appState.saveSolves();
+            window.appState.updateStats();
+            window.appState.renderHistory();
+            
+            alert('Data restored successfully!');
+          } catch (error) {
+            alert('Error restoring data: ' + error.message);
+          }
+        };
+        
+        input.click();
+      };
+    </script>
+</body>
+</html> 
