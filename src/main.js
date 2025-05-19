@@ -69,7 +69,7 @@ class AppState {
 
     initializeUI() {
         console.log('Initializing UI components');
-        this.renderScramble();
+        this.generateNewScramble(); // Generate initial scramble
         this.renderTimer();
         this.renderStats();
         this.renderHistory();
@@ -79,7 +79,7 @@ class AppState {
 
     renderScramble() {
         console.log('Rendering scramble');
-        const scrambleElement = document.getElementById('scrambleText');
+        const scrambleElement = document.getElementById('scramble');
         if (scrambleElement) {
             scrambleElement.textContent = this.currentScramble || 'Generate new scramble';
             console.log('Scramble text updated:', this.currentScramble);

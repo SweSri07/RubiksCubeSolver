@@ -7,7 +7,7 @@
 }
 
 .scramble {
-    font-family: monospace;
+    font-family: 'Roboto', Arial, sans-serif;
     font-size: 1.5rem;
     text-align: center;
     margin: 1rem 0;
@@ -130,23 +130,95 @@
 @media (max-width: 640px) {
     .timer {
         font-size: 3rem;
+        margin: 1rem 0;
     }
 
     .scramble {
         font-size: 1.25rem;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        word-break: break-word;
     }
 
     .solve-entry {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
     }
 
     .cube-net {
-        width: 250px;
+        width: 100%;
+        max-width: 280px;
+        margin: 1rem auto;
+        padding: 0.5rem;
     }
+
     .cube-net .cube-face {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .cube-net .cube-sticker {
+        min-width: 14px;
+        min-height: 14px;
+    }
+
+    .main-card {
+        padding: 1rem;
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    #statsContainer {
+        padding: 0.75rem;
+    }
+
+    .stat-card {
+        padding: 0.75rem;
+    }
+
+    .stat-card .space-y-2 > div {
+        font-size: 0.9rem;
+    }
+
+    .face-label {
+        font-size: 0.7rem;
+        padding: 0 2px;
+    }
+}
+
+/* Additional mobile optimizations for very small screens */
+@media (max-width: 360px) {
+    .timer {
+        font-size: 2.5rem;
+    }
+
+    .scramble {
+        font-size: 1.1rem;
+    }
+
+    .cube-net {
+        max-width: 240px;
+    }
+
+    .cube-net .cube-face {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        min-height: 45px;
+    }
+
+    .cube-net .cube-sticker {
+        min-width: 12px;
+        min-height: 12px;
     }
 }
 
