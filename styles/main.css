@@ -14,6 +14,9 @@
     padding: 1rem;
     background-color: #f3f4f6;
     border-radius: 0.5rem;
+    color: #4B2067;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 2D Net Layout - 4x3 grid for Rubik's Cube net */
@@ -102,7 +105,9 @@
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
     .scramble {
-        background-color: #374151;
+        background-color: #2e1065;
+        color: #e9d5ff;
+        border-color: #4c1d95;
     }
 
     .cube-net {
@@ -138,6 +143,9 @@
         padding: 0.75rem;
         margin: 0.5rem 0;
         word-break: break-word;
+        background-color: #ede9fe;
+        color: #4B2067;
+        border: 1px solid #ddd6fe;
     }
 
     .solve-entry {
