@@ -52,10 +52,8 @@
 </head>
 <body class="min-h-screen flex flex-col justify-center items-center">
     <div id="app" class="w-full max-w-lg mx-auto py-8">
-        <!-- Login/Welcome Section (centered card) -->
         
-
-        <!-- Main Solver UI (hidden until login) -->
+        <!-- Main Solver UI -->
         <main id="solverMain" class="main-card max-w-2xl">
             
             <!-- Scramble Section -->
@@ -138,85 +136,8 @@
     <script src="src/main.js"></script>
     <!-- Hammer.js for touch gestures -->
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script>
-      // Paste your Firebase config here
-      // const firebaseConfig = {
-        // apiKey: "AIzaSyBP54_-c6s0bLE23XdLPhdR73lrkGt85AM",
-        //authDomain: "rubikscubesolver-86085.firebaseapp.com",
-        // projectId: "rubikscubesolver-86085",
-        // storageBucket: "rubikscubesolver-86085.appspot.com",
-        // messagingSenderId: "131106983814",
-        // appId: "1:131106983814:web:5296c2c347510c5c78a607",
-        //measurementId: "G-XSRYYMWCLJ"
-      // };
-      // firebase.initializeApp(firebaseConfig);
-      // const auth = firebase.auth();
-      // const db = firebase.firestore();
-
-     //  function usernameToEmail(username) {
-        // return `${username}@swethacube.local`;
-      // }
-
-      // Auth state change handler
-      auth.onAuthStateChanged(async user => {
-        if (!user) {
-          // Show login, hide solver
-          document.getElementById('solverMain').classList.add('hidden');
-          document.getElementById('loginSection').classList.remove('hidden');
-          if (window.appState) {
-            window.appState.solves = [];
-            window.appState.sessionSolves = [];
-            window.appState.updateStats();
-            window.appState.renderHistory();
-          }
-        }
-      });
-
-      document.getElementById('loginBtn').onclick = async () => {
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
-        document.getElementById('loginError').textContent = '';
-        try {
-          await auth.signInWithEmailAndPassword(usernameToEmail(username), password);
-          // Show solver, hide login
-          document.getElementById('solverMain').classList.remove('hidden');
-          document.getElementById('loginSection').classList.add('hidden');
-          document.getElementById('userDisplay').textContent = username;
-          await window.appState.loadSolves();
-          window.appState.updateStats();
-          window.appState.renderHistory();
-          window.appState.generateNewScramble();
-        } catch (e) {
-          document.getElementById('loginError').textContent = e.message;
-        }
-      };
-
-      document.getElementById('signupBtn').onclick = async () => {
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
-        document.getElementById('loginError').textContent = '';
-        try {
-          await auth.createUserWithEmailAndPassword(usernameToEmail(username), password);
-          // Show solver, hide login
-          document.getElementById('solverMain').classList.remove('hidden');
-          document.getElementById('loginSection').classList.add('hidden');
-          document.getElementById('userDisplay').textContent = username;
-          await window.appState.loadSolves();
-          window.appState.updateStats();
-          window.appState.renderHistory();
-          window.appState.generateNewScramble();
-        } catch (e) {
-          document.getElementById('loginError').textContent = e.message;
-        }
-      };
-
-      document.getElementById('logoutBtn').onclick = async () => {
-        await auth.signOut();
-      };
-
+      
       // Initialize app state
       window.appState = new AppState();
 
