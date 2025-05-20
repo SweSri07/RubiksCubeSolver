@@ -1,69 +1,62 @@
+# Rubik's Cube Solver
 
-# SS' Rubik's Cube Solver
-
-A sleek, cross-device web app to track, analyze, and sync your Rubik's Cube solves with ease.
+A web application for tracking and timing Rubik's cube solves. This application helps cubers track their progress, generate scrambles, and visualize cube states.
 
 ## Features
-- 2D cube net visualization
-- Timer with spacebar and button controls
-- Random scramble generator
-- Solve history with sorting (newest, oldest, fastest, slowest)
-- Statistics: Total Solves, All Time Personal Best, Average of Last 5, Average of Last 10, All-time Average
-- Delete individual solves and all solves (with Firebase sync)
-- Backup and restore solves to/from JSON
-- Firebase Authentication (username-as-email, no real email required)
-- Cross-device sync with Firestore
-- Responsive, accessible, and mobile-friendly UI
-- Roboto font and deep violet/blue color palette
 
-## Tech Stack
-- HTML, CSS (Tailwind), JavaScript
-- Firebase (Auth, Firestore)
+- 🎯 **Timer with Spacebar Control**: Quick and easy timing with keyboard shortcuts
+- 🔄 **Scramble Generator**: Generates valid Rubik's cube scrambles
+- 📊 **Statistics Tracking**:
+  - Personal Best (PB)
+  - Average of 5 (Ao5)
+  - Average of 10 (Ao10)
+  - All-time average
+- 🎨 **Visual Cube Representation**: 2D net visualization of the cube state
+- 📱 **Mobile-Friendly Design**: Responsive layout for all devices
+- 🔐 **User Authentication**: Secure login and data storage
+- 💾 **Data Persistence**: Saves solves locally or in the cloud
+- 📈 **Solve History**: Track and analyze your solving progress
 
-## Getting Started
+## Technologies Used
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/yourusername/rubiks-cube-solver.git
-cd rubiks-cube-solver
-```
+- HTML5
+- CSS3
+- JavaScript
+- Firebase (Authentication & Firestore Database)
+- Tailwind CSS for styling
 
-### 2. Install Dependencies
-No build step is required. Just ensure you have an internet connection for CDN dependencies (Tailwind, Firebase, etc.).
+## Setup
 
-### 3. Firebase Setup
-- Create a Firebase project at [Firebase Console](https://console.firebase.google.com/).
-- Enable Authentication (Email/Password) and Firestore Database.
-- Replace the `firebaseConfig` in `index.html` with your own Firebase project config.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/rubiks-cube-solver.git
+   ```
 
-### 4. Run Locally
-Just open `index.html` in your browser:
-```bash
-# On Windows
-tart index.html
-# On Mac
-open index.html
-# Or just double-click the file
-```
+2. Open `index.html` in your web browser
+
+3. Create an account or log in
+
+4. Start solving!
 
 ## Usage
-- Sign up or log in with a username and password (no real email needed).
-- Track your solves, view stats, and sync across devices.
-- Use the "Backup Data" and "Restore Data" buttons to export/import your solves.
-- Use the "Delete All Data" button to clear all solves (from Firebase if logged in, or local storage if not).
+
+- Press spacebar or click the timer button to start/stop the timer
+- Click "Generate New Scramble" for a new cube state
+- View your statistics in the Stats section
+- Check your solve history in the History section
+- Sort solves by date or time
+- Export your data using the backup feature
 
 ## Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/YourFeature`)
-5. Open a pull request
+Feel free to submit issues and enhancement requests!
 
 ## License
-[MIT](LICENSE)
 
----
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Made with ❤️ for cubers by Swetha Srinivasan** 
+## Acknowledgments
+
+- Inspired by the speedcubing community
+- Built with modern web technologies
+- Special thanks to all contributors and users 

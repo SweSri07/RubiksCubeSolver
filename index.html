@@ -53,22 +53,10 @@
 <body class="min-h-screen flex flex-col justify-center items-center">
     <div id="app" class="w-full max-w-lg mx-auto py-8">
         <!-- Login/Welcome Section (centered card) -->
-        <section id="loginSection" class="main-card flex flex-col items-center justify-center mb-8">
-            <h1 class="text-4xl font-extrabold mb-2 text-violet-800">SS' Rubik's Cube Solver</h1>
-            <p class="text-lg text-gray-600 mb-6">Track your solves and improve your times</p>
-            <div id="authForm" class="w-full max-w-sm flex flex-col items-center">
-                <input id="username" type="text" placeholder="Username" class="border rounded px-3 py-2 mb-3 w-full text-lg">
-                <input id="password" type="password" placeholder="Password" class="border rounded px-3 py-2 mb-3 w-full text-lg">
-                <div class="flex gap-2 w-full mb-2">
-                    <button id="loginBtn" class="btn-primary font-bold py-2 rounded w-1/2 text-lg">Login</button>
-                    <button id="signupBtn" class="btn-secondary font-bold py-2 rounded w-1/2 text-lg">Sign Up</button>
-                </div>
-                <span id="loginError" class="text-red-500 text-sm mb-2"></span>
-            </div>
-        </section>
+        
 
         <!-- Main Solver UI (hidden until login) -->
-        <main id="solverMain" class="main-card max-w-2xl mx-auto hidden">
+        <main id="solverMain" class="main-card max-w-2xl">
             <div class="flex justify-between items-center mb-4">
                 <span id="userDisplay" class="text-2xl font-extrabold text-violet-800"></span>
                 <button id="logoutBtn" class="btn-secondary font-bold px-4 py-2 rounded">Logout</button>
