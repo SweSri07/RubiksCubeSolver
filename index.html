@@ -143,22 +143,22 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script>
       // Paste your Firebase config here
-      const firebaseConfig = {
-        apiKey: "AIzaSyBP54_-c6s0bLE23XdLPhdR73lrkGt85AM",
-        authDomain: "rubikscubesolver-86085.firebaseapp.com",
-        projectId: "rubikscubesolver-86085",
-        storageBucket: "rubikscubesolver-86085.appspot.com",
-        messagingSenderId: "131106983814",
-        appId: "1:131106983814:web:5296c2c347510c5c78a607",
-        measurementId: "G-XSRYYMWCLJ"
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
+      // const firebaseConfig = {
+        // apiKey: "AIzaSyBP54_-c6s0bLE23XdLPhdR73lrkGt85AM",
+        //authDomain: "rubikscubesolver-86085.firebaseapp.com",
+        // projectId: "rubikscubesolver-86085",
+        // storageBucket: "rubikscubesolver-86085.appspot.com",
+        // messagingSenderId: "131106983814",
+        // appId: "1:131106983814:web:5296c2c347510c5c78a607",
+        //measurementId: "G-XSRYYMWCLJ"
+      // };
+      // firebase.initializeApp(firebaseConfig);
+      // const auth = firebase.auth();
+      // const db = firebase.firestore();
 
-      function usernameToEmail(username) {
-        return `${username}@swethacube.local`;
-      }
+     //  function usernameToEmail(username) {
+        // return `${username}@swethacube.local`;
+      // }
 
       // Auth state change handler
       auth.onAuthStateChanged(async user => {
