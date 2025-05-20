@@ -22,7 +22,6 @@ A web application for tracking and timing Rubik's cube solves. This application 
 - HTML5
 - CSS3
 - JavaScript
-- Firebase (Authentication & Firestore Database)
 - Tailwind CSS for styling
 
 ## Setup
@@ -45,7 +44,6 @@ A web application for tracking and timing Rubik's cube solves. This application 
 - View your statistics in the Stats section
 - Check your solve history in the History section
 - Sort solves by date or time
-- Export your data using the backup feature
 
 ## Contributing
 
