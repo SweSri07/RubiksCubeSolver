@@ -13,8 +13,7 @@ A web application for tracking and timing Rubik's cube solves. This application 
   - All-time average
 - 🎨 **Visual Cube Representation**: 2D net visualization of the cube state
 - 📱 **Mobile-Friendly Design**: Responsive layout for all devices
-- 🔐 **User Authentication**: Secure login and data storage
-- 💾 **Data Persistence**: Saves solves locally or in the cloud
+- 💾 **Data Persistence**: Saves solves locally
 - 📈 **Solve History**: Track and analyze your solving progress
 
 ## Technologies Used
